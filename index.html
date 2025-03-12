@@ -15,17 +15,33 @@
   </head>
   <body>
     <header>
-      <nav class="w-11/12 mx-auto flex justify-between border-b-2 py-3">
+      <nav
+        class="w-11/12 mx-auto flex justify-between border-b-2 py-6 border-[#17171720]"
+      >
         <div class="logo">
-          <img class="w-[120px]" src="./assets/Logo.png" alt="" />
+          <img class="w-[175px]" src="./assets/Logo.png" alt="" />
         </div>
         <div class="sort">
-          <button class="btn">Sort by View</button>
+          <button class="btn bg-[#25252533] rounded-md px-5 py-2">
+            Sort by View
+          </button>
         </div>
         <div class="blogs">
-          <button class="btn bg-[#FF1F3D] text-white">Blogs</button>
+          <button class="btn bg-[#FF1F3D] text-white rounded-md px-5 py-2">
+            Blogs
+          </button>
         </div>
       </nav>
     </header>
+
+    <!-- Dynamic buttons -->
+    <nav id="category-container" class="flex py-5 justify-center gap-5">
+      <button class="btn">All</button>
+      <button class="btn">All</button>
+      <button class="btn">All</button>
+    </nav>
+
+    <!-- script -->
+    <script src="./script/index.js"></script>
   </body>
 </html>
