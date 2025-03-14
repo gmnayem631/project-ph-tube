@@ -1,3 +1,13 @@
+// showing loader
+// const showLoader = () => {
+//   document.getElementById("loader").classList.remove("hidden");
+//   document.getElementById("video-container").classList.add("hidden");
+// };
+// const hideLoader = () => {
+//   document.getElementById("loader").classList.add("hidden");
+//   document.getElementById("video-container").classList.remove("hidden");
+// };
+
 // removing the style for inactive buttons
 function removeActiveClass() {
   const activeButtons = document.getElementsByClassName("active");
@@ -17,6 +27,7 @@ function loadCategories() {
 
 // load videos
 function loadVideos(searchText = "") {
+  // showLoader();
   fetch(
     `https://openapi.programming-hero.com/api/phero-tube/videos?title=${searchText}`
   )
@@ -83,6 +94,7 @@ function displayCategories(categories) {
     `;
     // append the element
     categoryContainer.append(categoryDiv);
+    // hideLoader();
   }
 }
 
