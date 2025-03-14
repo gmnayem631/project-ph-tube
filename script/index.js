@@ -1,3 +1,11 @@
+// removing the style for inactive buttons
+function removeActiveClass() {
+  const activeButtons = document.getElementsByClassName("active");
+  for (let btn of activeButtons) {
+    btn.classList.remove("active");
+  }
+}
+
 function loadCategories() {
   //   fetch the data
   fetch("https://openapi.programming-hero.com/api/phero-tube/categories")
@@ -11,21 +19,55 @@ function loadCategories() {
 function loadVideos() {
   fetch("https://openapi.programming-hero.com/api/phero-tube/videos")
     .then((response) => response.json())
-    .then((data) => displayVideos(data.videos));
+    .then((data) => {
+      removeActiveClass();
+      document.getElementById("btn-all").classList.add("active");
+      displayVideos(data.videos);
+    });
 }
 
 function loadCategoryVideos(id) {
   const url = `https://openapi.programming-hero.com/api/phero-tube/category/${id}`;
-  console.log(url);
 
   fetch(url)
     .then((response) => response.json())
     .then((data) => {
+      removeActiveClass();
       const clickedButton = document.getElementById(`btn-${id}`);
       clickedButton.classList.add("active");
       displayVideos(data.category);
     });
 }
+
+// load detail video
+const loadVideoDetails = (videoId) => {
+  const url = `https://openapi.programming-hero.com/api/phero-tube/video/${videoId}`;
+  fetch(url)
+    .then((response) => response.json())
+    .then((data) => displayVideoDetails(data.video));
+};
+
+const displayVideoDetails = (video) => {
+  console.log(video);
+  document.getElementById("video_details").showModal(); // showing modal in "Show Details" buttons
+  const detailsContainer = document.getElementById("details-container");
+  detailsContainer.innerHTML = `
+  <div class="card bg-base-100 image-full shadow-sm">
+  <figure>
+    <img
+      src="${video.thumbnail}"
+      alt="Shoes" />
+  </figure>
+  <div class="card-body">
+    <h2 class="card-title">Card Title</h2>
+    <p>A card component has a figure, a body part, and inside body there are title and actions parts</p>
+    <div class="card-actions justify-end">
+      
+    </div>
+  </div>
+</div>
+  `;
+};
 
 function displayCategories(categories) {
   //   get the container
@@ -97,6 +139,7 @@ const displayVideos = (videos) => {
             <p class="text-sm text-[#171717B3]">${video.others.views}</p>
           </div>
         </div>
+        <button onclick=loadVideoDetails("${video.video_id}") class="btn btn-block">Show Details</button>
       </div>
     `;
     // appending the element

@@ -57,6 +57,7 @@
     <nav id="category-container" class="flex py-5 justify-center gap-5">
       <div>
         <button
+          id="btn-all"
           onclick="loadVideos()"
           class="btn bg-[#FF1F3D] text-white rounded-sm"
         >
@@ -79,6 +80,20 @@
         </h2>
       </div>
     </section>
+
+    <!-- Open the modal using ID.showModal() method -->
+    <button class="btn" onclick="video_details.showModal()">open modal</button>
+    <dialog id="video_details" class="modal">
+      <div class="modal-box">
+        <div id="details-container"></div>
+        <div class="modal-action">
+          <form method="dialog">
+            <!-- if there is a button in form, it will close the modal -->
+            <button class="btn">Close</button>
+          </form>
+        </div>
+      </div>
+    </dialog>
 
     <!-- script -->
     <script src="./script/index.js"></script>
