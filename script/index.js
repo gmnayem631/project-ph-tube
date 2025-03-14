@@ -16,8 +16,10 @@ function loadCategories() {
 }
 
 // load videos
-function loadVideos() {
-  fetch("https://openapi.programming-hero.com/api/phero-tube/videos")
+function loadVideos(searchText = "") {
+  fetch(
+    `https://openapi.programming-hero.com/api/phero-tube/videos?title=${searchText}`
+  )
     .then((response) => response.json())
     .then((data) => {
       removeActiveClass();
@@ -108,7 +110,9 @@ const displayVideos = (videos) => {
     videoCard.innerHTML = `
 <div class="card bg-base-100 shadow-sm">
         <figure class="relative">
-          <img class="w-full h-[200px] object-cover" src="${video.thumbnail}" alt="Shoes" />
+          <img class="w-full h-[200px] object-cover" src="${
+            video.thumbnail
+          }" alt="Shoes" />
           <span
             class="absolute bottom-2 right-2 text-white bg-[#171717] px-2 text-sm rounded-md p-1"
             >3hrs 56 min ago</span
@@ -130,21 +134,34 @@ const displayVideos = (videos) => {
             <h2 class="text-sm font-semibold">Midnight Serenade</h2>
             <p class="text-sm text-[#171717B3] flex gap-1">
               ${video.authors[0].profile_name}
-              <img
+              ${
+                video.authors[0].verified == true
+                  ? `<img
                 class="w-5 h-5"
                 src="https://img.icons8.com/?size=96&id=SRJUuaAShjVD&format=png"
                 alt=""
-              />
+              />`
+                  : ``
+              }
             </p>
             <p class="text-sm text-[#171717B3]">${video.others.views}</p>
           </div>
         </div>
-        <button onclick=loadVideoDetails("${video.video_id}") class="btn btn-block">Show Details</button>
+        <button onclick=loadVideoDetails("${
+          video.video_id
+        }") class="btn btn-block">Show Details</button>
       </div>
     `;
     // appending the element
     videoContainer.append(videoCard);
   });
 };
+
+// accessing the search input
+document.getElementById("search-input").addEventListener("keyup", (event) => {
+  const input = event.target.value;
+  loadVideos(input);
+  console.log(input);
+});
 
 loadCategories();
